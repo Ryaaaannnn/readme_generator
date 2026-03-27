@@ -12,6 +12,8 @@ def format_readme_markdown(data) -> str:
     md = textwrap.dedent(f"""\
     # {data.project_name} 🚀
 
+    > {data.introduction}
+
     ## 🏗 Architecture & Logic
     {data.architecture}
     

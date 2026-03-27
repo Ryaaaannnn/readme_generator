@@ -1,10 +1,12 @@
     # Agentic README Generator 🚀
 
+    > 這是一個智能自動化工具，能掃描您的專案目錄與核心程式碼，並利用生成式 AI 一鍵為您產出專業且結構化的 README 文件，讓專案文件撰寫變得輕鬆高效。
+
     ## 🏗 Architecture & Logic
-    本專案是一個基於 Python 的命令行工具，旨在自動生成專案 README 文件。它採用模組化設計，包含 `scanner` 模組負責掃描目錄結構與提取核心檔案內容，以及 `analyzer` 模組負責整合 Google Generative AI (Gemini) 進行代碼邏輯分析。`analyzer` 模組利用 Pydantic 定義結構化輸出 Schema，確保 AI 生成的 README 內容符合預期格式。`main` 模組則負責解析命令行參數、協調掃描與分析流程，並將最終結果格式化為 Markdown 文件。
+    本專案採用 Python 語言開發，核心架構包含三個主要模組：`ProjectScanner` 負責高效掃描專案目錄結構與提取關鍵檔案內容；`ProjectAnalyzer` 則整合 Google Generative AI (Gemini) 模型，將掃描結果送入 AI 進行深度分析，並透過 Pydantic 確保輸出符合預定義的 README 結構；最後由 `main.py` 協調流程，將 AI 產出的結構化資料轉換為精美的 Markdown 格式並寫入檔案。整體設計旨在提供一個輕量且智能的自動化文件生成方案。
 
     ### 🧮 Core Formula
-    \( T_{AI} = O(N_{tokens}) \) 表示核心 AI 分析模組的預期時間複雜度，其中 \( N_{tokens} \) 是輸入給大型語言模型的總字元數。
+    專案的核心邏輯涉及檔案系統的遞迴遍歷與內容讀取。若目標專案包含 $$N$$ 個檔案與目錄，則掃描器遍歷檔案系統的時間複雜度約為 $$O(N)$$。AI 分析階段的複雜度則取決於輸入 Token 數量與模型運算，但對於本地檔案系統操作而言，$$O(N)$$ 是主要考量。
 
     ## ⚡ Quick Start
     ```bash
@@ -12,16 +14,16 @@
 # 1. 安裝必要的 Python 套件
 pip install -r requirements.txt
 
-# 2. 設定 GEMINI_API_KEY 環境變數
-# 請從 Google AI Studio 取得您的 API Key
+# 2. 設定您的 Google Gemini API Key
+# 請從 Google AI Studio 取得 API Key
 export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
 
 # 3. 執行 README 生成器
-# 預設會掃描當前目錄並生成 README.md
-python main.py --path . --out README.md
+# 掃描當前目錄並生成 README.md
+python main.py
 
-# 您也可以指定其他專案路徑
-# python main.py --path /path/to/your/project --out /path/to/output/README.md
+# 掃描指定目錄 (例如: ../my_project) 並輸出到指定檔案 (例如: my_project_README.md)
+python main.py --path ../my_project --out my_project_README.md
 ```
     ```
 

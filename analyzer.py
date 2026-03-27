@@ -11,6 +11,7 @@ except ImportError:
 class ReadmeSchema(BaseModel):
     """定義 README.md 結構化輸出的 Schema"""
     project_name: str = Field(..., description="專案名稱，需簡潔有力")
+    introduction: str = Field(..., description="面向使用者的簡介，淺顯易懂地介紹專案內容，專注在實用功能而非技術詞彙。")
     architecture: str = Field(..., description="高階技術架構與邏輯說明（可包含語言、框架、工具等）")
     quick_start: str = Field(..., description="如何安裝與啟動此項目的指令與步驟，使用 Markdown 的 bash 語法格式化。請保持精簡，切勿無意義地重複。")
     logic_formula: str = Field(..., description="一個數學或邏輯公式，用以專業且客觀地展現專案核心邏輯的抽象概念或演算法複雜度。例如: $$O(N \\log N)$$")
@@ -40,9 +41,10 @@ class ProjectAnalyzer:
             "你是一個資深的系統架構師與技術主導者，具備卓越的技術洞察力與嚴謹的態度。\n"
             "你的任務是分析一份專案的目錄結構與部分核心程式碼，然後自動對結構與意圖進行逆向工程。\n"
             "請嚴格依據定義的 JSON Schema 輸出，文字風格必須保持「專業、輕鬆且客觀、用淺顯易懂的文字介紹工具的功能與使用方法」。\n"
-            "【強烈要求】你生成的 JSON 結構必須完整包含：project_name, architecture, quick_start, logic_formula 這四個欄位。如果原始碼沒有提供明顯的架構或公式，你要主動根據程式碼特徵推斷並填寫，絕對不可遺漏欄位。\n"
+            "【強烈要求】你生成的 JSON 結構必須完整包含：project_name, introduction, architecture, quick_start, logic_formula 這五個欄位。如果原始碼沒有提供明顯的架構或公式，你要主動根據程式碼特徵推斷並填寫，絕對不可遺漏欄位。\n"
             "【重要】在產生 logic_formula 時，對於字串內的數學公式請使用雙錢號 $$ 包覆（如 $$O(N)$$），絕對禁止使用單一反斜線，以避免造成 JSON 解析失敗。\n\n"
             "【Few-shot Example 語氣參考】\n"
+            "Introduction: 這是一個可以自動掃描專案檔案，並一鍵幫您產生專業 README 文件的自動化工具！\n"
             "Architecture: 本專案採用 Python FastAPI 框架搭配 Pydantic 進行資料驗證，實現了輕量且高效的微服務架構，並確保了嚴格的型別安全。\n"
             "Logic Formula: 表示核心模組的預期時間複雜度。\n"
         )
@@ -57,12 +59,13 @@ class ProjectAnalyzer:
         {files_str}
         
         【強制要求】
-        1. 請務必回傳合法的 JSON 字串（不要使用 ```json 或任何 Markdown 修飾），格式必須正好包含這四個 key。
+        1. 請務必回傳合法的 JSON 字串（不要使用 ```json 或任何 Markdown 修飾），格式必須正好包含這五個 key。
         2. 每個欄位的說明請保持精準且具體，避免任何冗長的廢話或重複的句子。
         
         期望格式：
         {{
             "project_name": "字串",
+            "introduction": "字串",
             "architecture": "字串",
             "quick_start": "字串",
             "logic_formula": "字串"
