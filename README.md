@@ -1,6 +1,6 @@
 # Agentic README Generator 🚀
 
-> 這是一個智能自動化工具，能掃描您的專案目錄與核心程式碼，並利用生成式 AI 一鍵為您產出專業且結構化的 README 文件，讓專案文件撰寫變得輕鬆高效。
+這是一個智能自動化工具，能掃描您的專案目錄與核心程式碼，並利用生成式 AI 一鍵為您產出專業且結構化的 README 文件，讓專案文件撰寫變得輕鬆高效。
 
 ## 🏗 Architecture & Logic
 本專案採用 Python 語言開發，核心架構包含三個主要模組：`ProjectScanner` 負責高效掃描專案目錄結構與提取關鍵檔案內容；`ProjectAnalyzer` 則整合 Google Generative AI (Gemini) 模型，將掃描結果送入 AI 進行深度分析，並透過 Pydantic 確保輸出符合預定義的 README 結構；最後由 `main.py` 協調流程，將 AI 產出的結構化資料轉換為精美的 Markdown 格式並寫入檔案。整體設計旨在提供一個輕量且智能的自動化文件生成方案。
